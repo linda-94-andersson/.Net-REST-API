@@ -9,7 +9,7 @@ namespace Catalog.Controllers
     [Route("[controller]")] // [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly InMemItemsRepository repository; 
+        private readonly IItemsRepository repository; 
 
         public ItemsController()
         {
