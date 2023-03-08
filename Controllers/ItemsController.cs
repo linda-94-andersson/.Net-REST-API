@@ -18,9 +18,20 @@ namespace Catalog.Controllers
 
         // GET /items
         [HttpGet]
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<ItemDto> GetItems()
         {
-            var items = repository.GetItems();
+            var items = repository
+                .GetItems()
+                .Select(
+                    item =>
+                        new ItemDto
+                        {
+                            Id = item.Id,
+                            Name = item.Name,
+                            Price = item.Price,
+                            CreatedDate = item.CreatedDate
+                        }
+                );
             return items;
         }
 
