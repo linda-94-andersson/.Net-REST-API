@@ -11,9 +11,9 @@ namespace Catalog.Controllers
     {
         private readonly IItemsRepository repository; 
 
-        public ItemsController()
+        public ItemsController(IItemsRepository repository)
         {
-            repository = new InMemItemsRepository(); 
+            this.repository = repository; 
         }
 
         // GET /items
