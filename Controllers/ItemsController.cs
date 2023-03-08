@@ -26,10 +26,16 @@ namespace Catalog.Controllers
 
         // GET /items/{id}
         [HttpGet("{id}")]
-        public Item GetItem(Guid id)
+        public ActionResult<Item> GetItem(Guid id)
         {
             var item = repository.GetItem(id); 
-            return item; 
+
+            if (item is null)
+            {
+                return NotFound(); 
+            }
+
+            return Ok(item); 
         }
     }
 }
