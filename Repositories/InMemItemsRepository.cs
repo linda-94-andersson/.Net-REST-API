@@ -6,7 +6,13 @@ using Catalog.Models;
 
 namespace Catalog.Repositories
 {
-    public class InMemItemsRepository
+    public interface IInMemItemsRepository
+    {
+        Item GetItem(Guid id);
+        IEnumerable<Item> GetItems(); 
+    }
+
+    public class InMemItemsRepository : IInMemItemsRepository
     {
         private readonly List<Item> items = new()
         {
