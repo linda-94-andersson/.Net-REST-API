@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Catalog.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Catalog.Repositories
@@ -8,12 +10,12 @@ namespace Catalog.Repositories
     public class MongoDbItemsRepository : IItemsRepository
     {
         private const string databaseName = "catalog";
-        private const string collectioNname = "items";
+        private const string collectionName = "items";
         private readonly IMongoCollection<Item> itemsCollection;
 
         public MongoDbItemsRepository(IMongoClient mongoClient)
         {
-            IMongoDatabse database = mongoClient.GetDatabase(databaseName);
+            IMongoDatabase database = mongoClient.GetDatabase(databaseName);
             itemsCollection = database.GetCollection<Item>(collectionName);
         }
 
