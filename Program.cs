@@ -16,13 +16,22 @@ builder.Services.AddControllers(options =>
 
 BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+var mongoDbSettings = builder.Configuration
+    .GetSection(nameof(MongoDbSettings))
+    .Get<MongoDbSettings>();
+
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
-    var settings = builder.Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
-    return new MongoClient(settings.ConnectionString);
+    return new MongoClient(mongoDbSettings.ConnectionString);
 });
 builder.Services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
-builder.Services.AddHealthChecks(); 
+builder.Services
+    .AddHealthChecks()
+    .AddMongoDb(
+        mongoDbSettings.ConnectionString,
+        name: "mongodb",
+        timeout: TimeSpan.FromSeconds(3)
+    );
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
