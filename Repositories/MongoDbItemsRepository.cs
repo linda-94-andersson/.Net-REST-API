@@ -17,7 +17,10 @@ namespace Catalog.Repositories
             itemsCollection = database.GetCollection<Item>(collectionName);
         }
 
-        public void CreateItem(Item item) { }
+        public void CreateItem(Item item)
+        {
+            itemsCollection.InsertOne(item);
+        }
 
         public void DeleteItem(Guid id) { }
 
