@@ -9,10 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.SuppressAsyncSuffixInActionNames = false;
+});
 
-BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String)); 
-BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String)); 
+BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
     var settings = builder.Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
