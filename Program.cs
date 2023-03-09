@@ -1,5 +1,7 @@
+using System;
 using Catalog.Repositories;
 using Catalog.Settings;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -30,7 +32,8 @@ builder.Services
     .AddMongoDb(
         mongoDbSettings.ConnectionString,
         name: "mongodb",
-        timeout: TimeSpan.FromSeconds(3)
+        timeout: TimeSpan.FromSeconds(3),
+        tags: new[] { "ready" }
     );
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -52,6 +55,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHealthChecks("/health");
+app.MapHealthChecks(
+    "/health/ready",
+    new HealthCheckOptions { Predicate = (check) => check.Tags.Contains("ready") }
+);
+
+app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = (_) => false });
 
 app.Run();
