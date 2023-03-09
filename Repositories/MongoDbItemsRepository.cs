@@ -24,12 +24,24 @@ namespace Catalog.Repositories
             itemsCollection.InsertOne(item);
         }
 
-        public void DeleteItem(Guid id) { }
+        public void DeleteItem(Guid id)
+        {
+            throw new NotImplementedException();
+        }
 
-        public Item GetItem(Guid id) { }
+        public Item GetItem(Guid id)
+        {
+            throw new NotImplementedException();
+        }
 
-        public IEnumerable<Item> GetItems() { }
+        public IEnumerable<Item> GetItems()
+        {
+            throw new NotImplementedException();
+        }
 
-        public void UpdateItem(Item item) { }
+        public void UpdateItem(Item item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
