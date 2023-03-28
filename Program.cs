@@ -49,10 +49,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-
-if (env.IsDevelopment())
-{
     app.UseHttpsRedirection();
 }
 
