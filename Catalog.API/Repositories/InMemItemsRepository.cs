@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using Catalog.Models;
+using Catalog.Api.Models;
 
 //File not used anymore
 
-namespace Catalog.Repositories
+namespace Catalog.Api.Repositories
 {
     public class InMemItemsRepository : IItemsRepository
     {
