@@ -1,0 +1,7 @@
+*obj 
+
+*appsettings.Development.json
+
+*bin
+
+.fake
